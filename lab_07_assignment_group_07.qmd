@@ -1,0 +1,26 @@
+---
+title: "Lab 7 Assignment: Group 07"
+author: "Anne Sofie Jokumsen (s244028), Sophia Cash (s225099), Norbert Bálint (s204668), Madeline Shah (s241901), Bedri Duraksoy (s233415)"
+format:
+  html:
+    embed-resources: true
+execute:
+  warning: false
+editor: visual
+---
+
+## **Loading**
+
+The following loads the data set and the packages used throughout this code. It assumes that the packages loaded are already installed.
+
+```{r}
+
+```
+
+## Header 2
+
+Text
+
+```{r}
+
+```
