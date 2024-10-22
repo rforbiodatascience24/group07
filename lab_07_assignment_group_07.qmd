@@ -51,7 +51,7 @@ nba_selected <- nba_clean |>
 
 ```{r}
 pca_fit <- nba_selected |>
-  select(where(is.numeric)) %>%
+  select(where(is.numeric)) |>
   prcomp(scale = TRUE) # do PCA on scaled data
 ```
 
@@ -63,42 +63,42 @@ pca_fit |>
 ```
 
 ```{r}
-# extract rotation matrix
 pca_fit |>
   tidy(matrix = "rotation")
 ```
 
 ```{r}
 # define arrow style for plotting
-arrow_style <- arrow(
-  angle = 20, ends = "first", type = "closed", length = grid::unit(8, "pt")
-)
+arrow_style <- arrow(angle = 20,
+                     ends = "first",
+                     type = "closed",
+                     length = grid::unit(8,
+                                         "pt"))
 
 # plot rotation matrix
-pca_fit %>%
-  tidy(matrix = "rotation") %>%
-  pivot_wider(names_from = "PC", names_prefix = "PC", values_from = "value") %>%
+pca_fit |>
+  tidy(matrix = "rotation") |>
+  pivot_wider(names_from = "PC", names_prefix = "PC", values_from = "value") |>
   ggplot(aes(PC1, PC2)) +
   geom_segment(xend = 0, yend = 0, arrow = arrow_style) +
-  geom_text(
-    aes(label = column),
-    hjust = 1, nudge_x = -0.02, 
-    color = "#904C2F"
-  ) +
-  xlim(-1.25, .5) + ylim(-.5, 1) +
-  coord_fixed() + # fix aspect ratio to 1:1
+  geom_text(aes(label = column),
+            hjust = 1, nudge_x = -0.02,
+            color = "#904C2F") +
+  xlim(-0.5, 0.75) +
+  ylim(-0.75, 0.25) +
+  coord_fixed() +
   theme_minimal_grid(12)
 
 ```
 
 ```{r}
-pca_fit %>%
+pca_fit |>
   tidy(matrix = "eigenvalues")
 ```
 
 ```{r}
-pca_fit %>%
-  tidy(matrix = "eigenvalues") %>%
+pca_fit |>
+  tidy(matrix = "eigenvalues") |>
   ggplot(aes(PC, percent)) +
   geom_col(fill = "#56B4E9", alpha = 0.8) +
   scale_x_continuous(breaks = 1:9) +
@@ -107,15 +107,6 @@ pca_fit %>%
     expand = expansion(mult = c(0, 0.01))
   ) +
   theme_minimal_hgrid(12)
-
-library(tidyverse)
-library(broom)
-
-
-```
-
-```{r}
-
 ```
 
 ## 
