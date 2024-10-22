@@ -17,10 +17,12 @@ The following loads the data set and the packages used throughout this code. It 
 
 ```
 
-## Header 2
+## Background
 
-Text
+The dataset was obtained from Kaggle under the ”Social Power NBA” dataset, under the name [NBA 16/17 Season Analysis](https://www.kaggle.com/code/ahmetburabua/nba-16-17-season-analysis) created by Noah Gift. It covers player names, team affiliations, salaries, positions, and various performance statistics (e.g., points, rebounds, assists). This data is relevant for assessing how different factors influence both player salaries and their on-court roles.
 
-```{r}
+The original analysis from the Kaggle notebook involved using player performance metrics such as points, rebounds, etc. to predict salaries with machine learning models such as linear regression and random forests. The conclusion notes that while the model still shows bias, it outperforms individual features like points per game, which achieved an $R^2$ of 0.41. The model performed better on the test set, but there remains room for improvement as the predictions are, on average, off by more than 4.5 million per player which is a significant amount.
 
-```
+## Aim
+
+The aim of this report is to perform a statistical analysis and PCA on the NBA data noted above. We will aim to bypass the unfriendly output of the prcomp() function in R and create our own PCA using the tidyverse and broom packages. We will focus on only a few of the statistics for our PCA, specifically FG%, 3P%, 2P%, FT% and POINTS.
