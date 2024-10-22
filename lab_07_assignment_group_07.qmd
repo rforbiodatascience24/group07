@@ -42,32 +42,29 @@ nba_selected <- nba_clean |>
          "3P%",
          "2P%",
          "FT%",
-         "POINTS")
+         "POINTS",
+         "POSITION") |>
+  na.omit() # remove rows with missing values
 ```
 
 ## Analysis
 
 ```{r}
-pca_fit <- nba %>% 
-  select(where(is.numeric)) %>% # retain only numeric columns
-  na.omit() %>% # remove rows with missing values
+pca_fit <- nba_selected |>
+  select(where(is.numeric)) %>%
   prcomp(scale = TRUE) # do PCA on scaled data
 ```
 
 ```{r}
-pca_fit %>%
-  augment(nba) %>% # add original dataset back in
-  ggplot(aes(.fittedPC1, .fittedPC2, color = outcome)) + 
-  geom_point(size = 1.5) +
-  scale_color_manual(
-    values = c(malignant = "#D55E00", benign = "#0072B2")
-  ) +
-  theme_half_open(12) + background_grid()
+pca_fit |>
+  augment(nba_selected) |>
+  ggplot(aes(.fittedPC1, .fittedPC2, color = POSITION)) + 
+  geom_point(size = 1.5)
 ```
 
 ```{r}
 # extract rotation matrix
-pca_fit %>%
+pca_fit |>
   tidy(matrix = "rotation")
 ```
 
