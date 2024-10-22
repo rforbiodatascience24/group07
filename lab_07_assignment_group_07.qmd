@@ -9,17 +9,31 @@ execute:
 editor: visual
 ---
 
-## **Loading**
+## Loading
 
 The following loads the data set and the packages used throughout this code. It assumes that the packages loaded are already installed.
 
 ```{r}
 library(tidyverse)
 library(broom)
+
+nba_data <- read_csv("~/projects/lab07_git_exercises/data/_raw/nba_2017_nba_players_with_salary.csv")
 ```
 
+## Organizing the data
+
+We only wish to look at a few of the statistics for our PCA, specifically FG%, 3P%, 2P%, FT% and POINTS.
+
 ```{r}
-data <- read_csv(file = "data/_raw/nba_2017_nba_players_with_salary.csv", na = c("NA", "N/A", ""))
+nba_clean <- nba_data |>
+  as_tibble()
+
+nba_selected <- nba_clean |>
+  select("FG%",
+         "3P%",
+         "2P%",
+         "FT%",
+         "POINTS")
 ```
 
 ## Background
@@ -31,3 +45,4 @@ The original analysis from the Kaggle notebook involved using player performance
 ## Aim
 
 The aim of this report is to perform a statistical analysis and PCA on the NBA data noted above. We will aim to bypass the unfriendly output of the prcomp() function in R and create our own PCA using the tidyverse and broom packages. We will focus on only a few of the statistics for our PCA, specifically FG%, 3P%, 2P%, FT% and POINTS.
+
