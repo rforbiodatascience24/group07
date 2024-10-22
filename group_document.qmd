@@ -30,4 +30,12 @@ name <- "madeline"
 print("Potatos have no bones")
 ```
 
+### New Feature
+
+```{r}
+print("Studies show potatos are made up of 14 mg calcium")
+
+print("For a 213g potato that is 0.000066% percent calcium! Not enough for bones...")
+```
+
 ## Bed
