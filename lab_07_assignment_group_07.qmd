@@ -34,7 +34,6 @@ pca_fit <- nba %>%
 ```
 
 ```{r}
-<<<<<<< HEAD
 pca_fit %>%
   augment(nba) %>% # add original dataset back in
   ggplot(aes(.fittedPC1, .fittedPC2, color = outcome)) + 
