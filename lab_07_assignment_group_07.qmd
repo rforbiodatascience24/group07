@@ -45,4 +45,3 @@ The original analysis from the Kaggle notebook involved using player performance
 ## Aim
 
 The aim of this report is to perform a statistical analysis and PCA on the NBA data noted above. We will aim to bypass the unfriendly output of the prcomp() function in R and create our own PCA using the tidyverse and broom packages. We will focus on only a few of the statistics for our PCA, specifically FG%, 3P%, 2P%, FT% and POINTS.
-
