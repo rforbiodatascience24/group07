@@ -14,7 +14,12 @@ editor: visual
 The following loads the data set and the packages used throughout this code. It assumes that the packages loaded are already installed.
 
 ```{r}
+library(tidyverse)
+library(broom)
+```
 
+```{r}
+data <- read_csv(file = "data/_raw/nba_2017_nba_players_with_salary.csv", na = c("NA", "N/A", ""))
 ```
 
 ## Background
