@@ -29,5 +29,10 @@ We only wish to look at a few of the statistics for our PCA, specifically FG%, 3
 nba_clean <- nba_data |>
   as_tibble()
 
-
+nba_selected <- nba_clean |>
+  select("FG%",
+         "3P%",
+         "2P%",
+         "FT%",
+         "POINTS")
 ```
