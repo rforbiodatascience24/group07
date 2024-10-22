@@ -15,12 +15,29 @@ The following loads the data set and the packages used throughout this code. It 
 
 ```{r}
 
+library(tidyverse)
+
+nba_dataset <- read_csv("data/_raw/nba_2017_nba_players_with_salary.csv")
 ```
 
-## Header 2
-
-Text
+## Changing to PC Coordinates
 
 ```{r}
+pca_nba_fit <- nba_dataset |>
+  select(where(is.numeric)) |>
+  scale() |>
+  prcomp()
+```
 
+### First plot
+
+```{r}
+pca_fit %>%
+  augment(nba_dataset) %>% # add original dataset back in
+  ggplot(aes(.fittedPC1, .fittedPC2, color = outcome)) + 
+  geom_point(size = 1.5) +
+  scale_color_manual(
+    values = c(malignant = "#D55E00", benign = "#0072B2")
+  ) +
+  theme_half_open(12) + background_grid()
 ```
