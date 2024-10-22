@@ -14,6 +14,15 @@ x<-rnorm(n=10000, mean=1, sd=.25)
 plot(density(x), type='l', main='', ylab='', xlab='')
 ```
 
+#### New analysis
+
+Not feeling inspired...
+
+```{r}
+z<-rnorm(n=10000, mean=10, sd=.25)
+plot(density(z), type='l', main='', ylab='', xlab='')
+```
+
 ## Madeline
 
 #### New Analysis
@@ -34,10 +43,28 @@ name <- "madeline"
 
 ## Nor
 
+```{r}
+print("Join the riot")
+```
+
+#### More analyses
+
+```{r}
+print("Print")
+```
+
 ## Sop
 
 ```{r}
 print("Potatos have no bones")
+```
+
+### New Feature
+
+```{r}
+print("Studies show potatos are made up of 14 mg calcium")
+
+print("For a 213g potato that is 0.000066% percent calcium! Not enough for bones...")
 ```
 
 ## Bed
