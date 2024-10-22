@@ -9,7 +9,6 @@ execute:
 editor: visual
 ---
 
-<<<<<<< HEAD
 ```{r}
 library(tidyverse)
 library(broom) 
