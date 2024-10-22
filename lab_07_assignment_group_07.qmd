@@ -11,29 +11,34 @@ editor: visual
 
 ## Background
 
-The dataset was obtained from Kaggle under the ”Social Power NBA” dataset, under the name [NBA 16/17 Season Analysis](https://www.kaggle.com/code/ahmetburabua/nba-16-17-season-analysis) created by Noah Gift. It covers player names, team affiliations, salaries, positions, and various performance statistics (e.g., points, rebounds, assists). This data is relevant for assessing how different factors influence both player salaries and their on-court roles.
-
-The original analysis from the Kaggle notebook involved using player performance metrics such as points, rebounds, etc. to predict salaries with machine learning models such as linear regression and random forests. The conclusion notes that while the model still shows bias, it outperforms individual features like points per game, which achieved an $R^2$ of 0.41. The model performed better on the test set, but there remains room for improvement as the predictions are, on average, off by more than 4.5 million per player which is a significant amount.
+The dataset was obtained from Kaggle under the ”Social Power NBA” dataset, under the name [NBA 16/17 Season Analysis](https://www.kaggle.com/code/ahmetburabua/nba-16-17-season-analysis) created by Noah Gift. It covers player names, team affiliations, salaries, positions, and various performance statistics (e.g., points, rebounds, assists). It was originally collected in order to examine the social influence of players, but can be used to uncover a wide variety of other correlations.
 
 ## Aim
 
-The aim of this report is to perform a statistical analysis and PCA on the NBA data noted above. We will aim to bypass the unfriendly output of the prcomp() function in R and create our own PCA using the tidyverse and broom packages. We will focus on only a few of the statistics for our PCA, specifically FG%, 3P%, 2P%, FT% and POINTS.
+The aim of this report is to perform a statistical analysis and PCA on the NBA data noted above. We will aim to bypass the unfriendly output of the `prcomp()` function in R and create our own PCA using the `tidyverse` and `broom` packages. We will focus on only a few of the statistics for our PCA, specifically `FG%`, `3P%`, `2P%`, `FT%` and `POINTS` and how `POSTION` corresponds to these attributes.
 
 ## Loading
 
+The following loads the data set stored in *data/\_raw/* and packages used throughout this analysis. It assumes that the packages are already installed.
+
 ```{r}
-library(tidyverse)
-library(broom) 
-library(cowplot)
+#| output: false
+
+library("tidyverse")
+library("ggrepel")
+library("broom") 
+library("cowplot")
 
 nba_data <- read_csv("~/projects/lab07_git_exercises/data/_raw/nba_2017_nba_players_with_salary.csv")
 ```
 
 ## Organizing the data
 
-We only wish to look at a few of the statistics for our PCA, specifically FG%, 3P%, 2P%, FT% and POINTS.
+We only wish to look at a few of the statistics for our PCA, so we create a new tibble with only the abive mentioned attributes. We also replace `NA` values with 0, as these are caused by division by 0 when the player has had 0 attempts.
 
 ```{r}
+#| output: false
+
 nba_clean <- nba_data |>
   as_tibble()
 
@@ -44,68 +49,94 @@ nba_selected <- nba_clean |>
          "FT%",
          "POINTS",
          "POSITION") |>
-  na.omit() # remove rows with missing values
+  mutate(across(where(is.numeric),
+                ~ replace_na(., 0)))
 ```
 
 ## Analysis
 
+We start the analysis by selecting the numeric data and performing a PCA while allowing for scaling.
+
 ```{r}
+#| output: false
+
 pca_fit <- nba_selected |>
   select(where(is.numeric)) |>
-  prcomp(scale = TRUE) # do PCA on scaled data
+  prcomp(scale = TRUE)
 ```
+
+We then calculate the rotation matrix and augment it into a tidy format.
+
+```{r}
+#| output: false
+
+rotation_matrix <- pca_fit |>
+  tidy(matrix = "rotation")
+```
+
+At last, we determine the variance explained by each principal component.
+
+```{r}
+#| output: false
+
+variance_explained <- pca_fit |>
+  tidy(matrix = "eigenvalues")
+```
+
+## Visualization
+
+Our data is plotted over the two first principal components and color coded according to the player position.
 
 ```{r}
 pca_fit |>
   augment(nba_selected) |>
-  ggplot(aes(.fittedPC1, .fittedPC2, color = POSITION)) + 
-  geom_point(size = 1.5)
+  ggplot(aes(.fittedPC1,
+             .fittedPC2,
+             color = POSITION)) + 
+  geom_point(size = 1.5,
+             alpha = 0.75) +
+  theme_minimal()
 ```
 
-```{r}
-pca_fit |>
-  tidy(matrix = "rotation")
-```
+We plot the rotation matrix over the two first principal components as well.
 
 ```{r}
-# define arrow style for plotting
 arrow_style <- arrow(angle = 20,
                      ends = "first",
                      type = "closed",
-                     length = grid::unit(8,
-                                         "pt"))
+                     length = grid::unit(8, "pt"))
 
-# plot rotation matrix
-pca_fit |>
-  tidy(matrix = "rotation") |>
-  pivot_wider(names_from = "PC", names_prefix = "PC", values_from = "value") |>
-  ggplot(aes(PC1, PC2)) +
-  geom_segment(xend = 0, yend = 0, arrow = arrow_style) +
-  geom_text(aes(label = column),
-            hjust = 1, nudge_x = -0.02,
-            color = "#904C2F") +
+rotation_matrix |>
+  pivot_wider(names_from = "PC",
+              names_prefix = "PC",
+              values_from = "value") |>
+  ggplot(aes(PC1,
+             PC2,
+             color = column)) +
+  geom_segment(xend = 0,
+               yend = 0,
+               arrow = arrow_style) +
+  geom_text_repel(aes(label = column), 
+                  nudge_x = -0.02,
+                  max.overlaps = Inf) +
   xlim(-0.5, 0.75) +
   ylim(-0.75, 0.25) +
   coord_fixed() +
-  theme_minimal_grid(12)
+  theme_minimal() +
+  theme(legend.position = "none")
 
 ```
 
-```{r}
-pca_fit |>
-  tidy(matrix = "eigenvalues")
-```
+Finally, we visualize the variance explained through a histogram.
 
 ```{r}
-pca_fit |>
-  tidy(matrix = "eigenvalues") |>
+variance_explained |>
   ggplot(aes(PC, percent)) +
   geom_col(fill = "#56B4E9", alpha = 0.8) +
   scale_x_continuous(breaks = 1:9) +
   scale_y_continuous(
     labels = scales::percent_format(),
-    expand = expansion(mult = c(0, 0.01))
-  ) +
+    expand = expansion(mult = c(0, 0.01))) +
   theme_minimal_hgrid(12)
 ```
 
