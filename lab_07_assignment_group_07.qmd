@@ -15,12 +15,18 @@ The following loads the data set and the packages used throughout this code. It 
 
 ```{r}
 
+library("tidyverse")
+library("readr")
+
+nba_data <- read_csv("~/projects/lab07_git_exercises/data/_raw/nba_2017_nba_players_with_salary.csv")
 ```
 
-## Header 2
+## Tidying the data
 
-Text
+We only wish to look at a few of the statistics for our PCA, specifically FG%, 3P%, 2P%, FT% and POINTS.
 
 ```{r}
+
+
 
 ```
