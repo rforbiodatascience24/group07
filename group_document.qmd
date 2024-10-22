@@ -6,6 +6,14 @@ editor: visual
 
 ## Sof
 
+Official name: Captain Sjofski
+
+```{r}
+
+x<-rnorm(n=10000, mean=1, sd=.25)
+plot(density(x), type='l', main='', ylab='', xlab='')
+```
+
 ## Mad
 
 ## Nor
