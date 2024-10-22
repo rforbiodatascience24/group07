@@ -21,12 +21,13 @@ library("readr")
 nba_data <- read_csv("~/projects/lab07_git_exercises/data/_raw/nba_2017_nba_players_with_salary.csv")
 ```
 
-## Tidying the data
+## Organizing the data
 
 We only wish to look at a few of the statistics for our PCA, specifically FG%, 3P%, 2P%, FT% and POINTS.
 
 ```{r}
-
+nba_clean <- nba_data |>
+  as_tibble()
 
 
 ```
