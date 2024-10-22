@@ -19,7 +19,7 @@ library(cowplot)
 #### Visualization
 =======
 ## Loading
->>>>>>> 205124d33a246eb3d05bf1e02b23561ae904a1b8
+
 
 ```{r}
 biopsy <- read_csv("https://wilkelab.org/classes/SDS348/data_sets/biopsy.csv")
