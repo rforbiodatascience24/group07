@@ -6,6 +6,7 @@ editor: visual
 
 ## Sof
 
+<<<<<<< HEAD
 Official name: Captain Sjofski
 
 ```{r}
@@ -15,6 +16,15 @@ plot(density(x), type='l', main='', ylab='', xlab='')
 ```
 
 ## Mad
+=======
+## Madeline
+
+Hi
+
+```{r}
+name <- "madeline"
+```
+>>>>>>> 8ff9f852c26b1037c363240579006d4b6073cc12
 
 ## Nor
 
