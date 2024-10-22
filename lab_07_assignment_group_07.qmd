@@ -9,6 +9,7 @@ execute:
 editor: visual
 ---
 
+<<<<<<< HEAD
 ```{r}
 library(tidyverse)
 library(broom) 
@@ -17,6 +18,9 @@ library(cowplot)
 ```
 
 #### Visualization
+=======
+## Loading
+>>>>>>> 205124d33a246eb3d05bf1e02b23561ae904a1b8
 
 ```{r}
 biopsy <- read_csv("https://wilkelab.org/classes/SDS348/data_sets/biopsy.csv")
@@ -31,6 +35,7 @@ pca_fit <- nba %>%
 ```
 
 ```{r}
+<<<<<<< HEAD
 pca_fit %>%
   augment(nba) %>% # add original dataset back in
   ggplot(aes(.fittedPC1, .fittedPC2, color = outcome)) + 
@@ -86,4 +91,37 @@ pca_fit %>%
     expand = expansion(mult = c(0, 0.01))
   ) +
   theme_minimal_hgrid(12)
+=======
+library(tidyverse)
+library(broom)
+
+nba_data <- read_csv("~/projects/lab07_git_exercises/data/_raw/nba_2017_nba_players_with_salary.csv")
 ```
+
+## Organizing the data
+
+We only wish to look at a few of the statistics for our PCA, specifically FG%, 3P%, 2P%, FT% and POINTS.
+
+```{r}
+nba_clean <- nba_data |>
+  as_tibble()
+
+nba_selected <- nba_clean |>
+  select("FG%",
+         "3P%",
+         "2P%",
+         "FT%",
+         "POINTS")
+>>>>>>> 205124d33a246eb3d05bf1e02b23561ae904a1b8
+```
+
+## Background
+
+The dataset was obtained from Kaggle under the ”Social Power NBA” dataset, under the name [NBA 16/17 Season Analysis](https://www.kaggle.com/code/ahmetburabua/nba-16-17-season-analysis) created by Noah Gift. It covers player names, team affiliations, salaries, positions, and various performance statistics (e.g., points, rebounds, assists). This data is relevant for assessing how different factors influence both player salaries and their on-court roles.
+
+The original analysis from the Kaggle notebook involved using player performance metrics such as points, rebounds, etc. to predict salaries with machine learning models such as linear regression and random forests. The conclusion notes that while the model still shows bias, it outperforms individual features like points per game, which achieved an $R^2$ of 0.41. The model performed better on the test set, but there remains room for improvement as the predictions are, on average, off by more than 4.5 million per player which is a significant amount.
+
+## Aim
+
+The aim of this report is to perform a statistical analysis and PCA on the NBA data noted above. We will aim to bypass the unfriendly output of the prcomp() function in R and create our own PCA using the tidyverse and broom packages. We will focus on only a few of the statistics for our PCA, specifically FG%, 3P%, 2P%, FT% and POINTS.
+
