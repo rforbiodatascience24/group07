@@ -1,0 +1,15 @@
+---
+title: "group_document.qmd"
+format: html
+editor: visual
+---
+
+## Sof
+
+## Mad
+
+## Nor
+
+## Sop
+
+## Bed
