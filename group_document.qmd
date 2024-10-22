@@ -28,4 +28,8 @@ name <- "madeline"
 
 ## Sop
 
+```{r}
+print("Potatos have no bones")
+```
+
 ## Bed
