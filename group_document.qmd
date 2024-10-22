@@ -43,6 +43,10 @@ name <- "madeline"
 
 ## Nor
 
+```{r}
+print("Join the riot")
+```
+
 ## Sop
 
 ```{r}
