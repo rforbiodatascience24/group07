@@ -6,7 +6,13 @@ editor: visual
 
 ## Sof
 
-## Mad
+## Madeline
+
+Hi
+
+```{r}
+name <- "madeline"
+```
 
 ## Nor
 
