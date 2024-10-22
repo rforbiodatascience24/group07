@@ -16,6 +16,16 @@ plot(density(x), type='l', main='', ylab='', xlab='')
 
 ## Madeline
 
+#### New Analysis
+
+some text blah blah
+
+```{r}
+
+x <- c(1, 2, 3, 4, 5, 5, 5, 5)
+plot(density(x), type = 'l')
+```
+
 Hi
 
 ```{r}
