@@ -17,7 +17,7 @@ library(cowplot)
 ```
 
 #### Visualization
-=======
+
 ## Loading
 
 
@@ -89,7 +89,7 @@ pca_fit %>%
     expand = expansion(mult = c(0, 0.01))
   ) +
   theme_minimal_hgrid(12)
-=======
+
 library(tidyverse)
 library(broom)
 
@@ -110,7 +110,6 @@ nba_selected <- nba_clean |>
          "2P%",
          "FT%",
          "POINTS")
->>>>>>> 205124d33a246eb3d05bf1e02b23561ae904a1b8
 ```
 
 ## Background
